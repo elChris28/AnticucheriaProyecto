@@ -17,7 +17,3 @@ body {
   padding: 20px;
 }
 
-.list-group-item:hover {
-  background-color: #343a40 !important;
-  color: #fff !important;
-}
