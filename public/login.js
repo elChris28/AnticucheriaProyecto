@@ -6,11 +6,10 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
 
   // Definir los roles y contraseñas correspondientes
   const users = {
-    Admin: { password: "1234", role: "mesas", redirect: "gestionMesas.html" },
-    Admin_categorias: { password: "5678", role: "categorias", redirect: "gestionCategorias.html" },
-    cocinero_1: { password: "abcd", role: "cocinero_1", redirect: "gestionCocina1.html" },
-    Cocinero_2: { password: "efgh", role: "cocinero_2", redirect: "gestionCocina2.html" },
-    Cajero: { password: "1a2b", role: "cajero", redirect: "gestionCajero.html" },
+    Mesas: { password: "1a2b", role: "mesas", redirect: "View/gestionMesas.html" },
+    Cocinero_1: { password: "1a2b", role: "cocinero_1", redirect: "View/Cocinero1.html" },
+    Cocinero_2: { password: "1a2b", role: "cocinero_2", redirect: "View/Cocinero2.html" },
+    Cajero: { password: "1a2b", role: "cajero", redirect: "View/gestionCajero.html" },
     Control: { password: "1a2b", role: "control", redirect: "Admin/Inicio.html" }
   };
 

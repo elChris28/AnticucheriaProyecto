@@ -1,16 +1,15 @@
-    body { background: #f8f9fa; }
-    .card { border-left: 6px solid #0d6efd; }
-    .titulo { font-size: 1.25rem; font-weight: bold; color: #0d6efd; }
-    .terminado-card { border-left: 6px solid #28a745; background: #eaf7ec; }
 
-    .text-success {
-    color: #28a745 !important;
+    .card 
+    { 
+        border-left: 6px solid #0d6efd; 
     }
 
-    .text-warning {
-    color: #ffc107 !important;
+    .titulo 
+    { 
+        font-size: 1.25rem; font-weight: bold; color: #0d6efd; 
     }
 
-    .text-danger {
-    color: #dc3545 !important;
+    .terminado-card 
+    { 
+        border-left: 6px solid #28a745; background: #eaf7ec; 
     }
