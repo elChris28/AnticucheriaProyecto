@@ -1,0 +1,23 @@
+/* public/admin/css/admin.css */
+body {
+  background-color: #f4f6f9;
+}
+
+#wrapper {
+  min-height: 100vh;
+  display: flex;
+}
+
+#sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  flex: 1;
+  padding: 20px;
+}
+
+.list-group-item:hover {
+  background-color: #343a40 !important;
+  color: #fff !important;
+}

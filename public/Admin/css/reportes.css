@@ -1,0 +1,4 @@
+  #tabla-ventas td:first-child,
+  #tabla-ventas th:first-child {
+    display: none;
+  }
