@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('total-usuarios').textContent = data.usuarios;
 
   } catch (err) {
-    console.error('❌ Error al cargar dashboard:', err);
+    console.error('Error al cargar dashboard:', err);
   }
 });

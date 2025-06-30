@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db'); // Asegúrate que la ruta sea correcta a tu archivo de conexión
+const db = require('../config/db'); 
 
 // Obtener todas las ventas
 router.get('/', async (req, res) => {
@@ -11,9 +11,9 @@ router.get('/', async (req, res) => {
     JOIN Mesas m ON v.MesaId = m.id
     ORDER BY v.Fecha DESC
     `);
-    res.json(ventas); // Esto debe ser un array
+    res.json(ventas); 
   } catch (err) {
-    console.error('❌ Error al obtener ventas:', err);
+    console.error('Error al obtener ventas:', err);
     res.status(500).json({ error: 'Error al obtener ventas' });
   }
 });
@@ -26,12 +26,12 @@ router.delete('/:id', async (req, res) => {
     await db.executeNonQuery('DELETE FROM Ventas WHERE id = @param0', [id]);
     res.json({ success: true });
   } catch (err) {
-    console.error('❌ Error al eliminar venta:', err);
+    console.error('Error al eliminar venta:', err);
     res.status(500).json({ error: 'Error al eliminar venta' });
   }
 });
 
-// Editar una venta (ejemplo para cambiar método de pago)
+// Editar una venta (cambiar método de pago)
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const { metodoPago } = req.body;
@@ -39,7 +39,7 @@ router.put('/:id', async (req, res) => {
     await db.executeNonQuery('UPDATE Ventas SET MetodoPago = @param0 WHERE Id = @param1', [metodoPago, id]);
     res.json({ success: true });
   } catch (err) {
-    console.error('❌ Error al editar venta:', err);
+    console.error('Error al editar venta:', err);
     res.status(500).json({ error: 'Error al editar venta' });
   }
 });

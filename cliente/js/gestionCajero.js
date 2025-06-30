@@ -283,7 +283,6 @@ async function cargarResumenPago() {
   document.getElementById("resumen-pago").style.display = "block";
 }
 
-
 // OPCIONAL: Imprimir comprobante
 function imprimirComprobante() {
   if (!resumenPago) {
@@ -297,7 +296,7 @@ function imprimirComprobante() {
     <html>
       <head>
         <title>Boleta de Venta - Mesa ${venta.MesaId}</title>
-        <link rel="stylesheet" href="/Admin/css/boleta.css">
+        <link rel="stylesheet" href="/css/boleta.css">
       </head>
       <body>
         <div class="boleta-header">

@@ -19,7 +19,7 @@ router.post('/asignaciones', async (req, res) => {
   try {
     await db.executeQueryWithNamedParams(
       `INSERT INTO AsignacionCategoriasCocinero (CocineroNombre, CategoriaId)
-       VALUES (@CocineroNombre, @CategoriaId)`,
+        VALUES (@CocineroNombre, @CategoriaId)`,
       { CocineroNombre: cocinero, CategoriaId: categoriaId }
     );
     res.json({ mensaje: 'Asignación guardada' });

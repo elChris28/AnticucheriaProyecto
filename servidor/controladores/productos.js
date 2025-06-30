@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     const productos = await db.executeQuery(query);
     res.json(productos);
   } catch (error) {
-    console.error('❌ Error al obtener productos:', error);
+    console.error('Error al obtener productos:', error);
     res.status(500).json({ mensaje: 'Error al obtener productos' });
   }
 });
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Nombre, Precio, CategoriaId });
     res.status(201).json({ mensaje: 'Producto agregado correctamente' });
   } catch (err) {
-    console.error('❌ Error al agregar producto:', err);
+    console.error('Error al agregar producto:', err);
     res.status(500).json({ mensaje: 'Error al agregar producto' });
   }
 });
@@ -49,12 +49,12 @@ router.put('/:id', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Id: id, Nombre, Precio });
     res.json({ mensaje: 'Producto actualizado' });
   } catch (err) {
-    console.error('❌ Error al actualizar producto:', err);
+    console.error('Error al actualizar producto:', err);
     res.status(500).json({ mensaje: 'Error al actualizar producto' });
   }
 });
 
-// Eliminar producto (borrado lógico)
+// Eliminar producto
 router.delete('/:id', async (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -62,12 +62,10 @@ router.delete('/:id', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Id: id });
     res.json({ mensaje: 'Producto eliminado correctamente' });
   } catch (err) {
-    console.error('❌ Error al eliminar producto:', err);
+    console.error('Error al eliminar producto:', err);
     res.status(500).json({ mensaje: 'Error al eliminar producto' });
   }
 });
-
-// === CATEGORÍAS ===
 
 // Obtener categorías activas
 router.get('/categorias', async (req, res) => {
@@ -75,7 +73,7 @@ router.get('/categorias', async (req, res) => {
     const categorias = await db.executeQuery('SELECT * FROM Categorias WHERE Estado = 1');
     res.json(categorias);
   } catch (error) {
-    console.error('❌ Error al obtener categorías:', error);
+    console.error('Error al obtener categorías:', error);
     res.status(500).json({ mensaje: 'Error al obtener categorías' });
   }
 });
@@ -112,7 +110,7 @@ router.get('/categorias-con-productos', async (req, res) => {
 
     res.json(Object.values(categoriasMap));
   } catch (error) {
-    console.error('❌ Error al agrupar productos por categoría:', error);
+    console.error('Error al agrupar productos por categoría:', error);
     res.status(500).json({ mensaje: 'Error al obtener productos por categoría' });
   }
 });
@@ -126,7 +124,7 @@ router.post('/categorias', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Nombre });
     res.status(201).json({ mensaje: 'Categoría agregada correctamente' });
   } catch (error) {
-    console.error('❌ Error al agregar categoría:', error);
+    console.error('Error al agregar categoría:', error);
     res.status(500).json({ mensaje: 'Error al agregar categoría' });
   }
 });
@@ -140,12 +138,12 @@ router.put('/categorias/:id', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Id: id, Nombre });
     res.json({ mensaje: 'Categoría actualizada correctamente' });
   } catch (error) {
-    console.error('❌ Error al editar categoría:', error);
+    console.error('Error al editar categoría:', error);
     res.status(500).json({ mensaje: 'Error al editar categoría' });
   }
 });
 
-// Eliminar (lógicamente) categoría
+// Eliminar categoría
 router.delete('/categorias/:id', async (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -153,7 +151,7 @@ router.delete('/categorias/:id', async (req, res) => {
     await db.executeQueryWithNamedParams(query, { Id: id });
     res.json({ mensaje: 'Categoría eliminada (estado=0)' });
   } catch (error) {
-    console.error('❌ Error al eliminar categoría:', error);
+    console.error(' Error al eliminar categoría:', error);
     res.status(500).json({ mensaje: 'Error al eliminar categoría' });
   }
 });

@@ -13,7 +13,6 @@ const config = {
 
 let pool = null;
 
-// Función para obtener el pool de conexiones (Singleton)
 async function getPool() {
     if (!pool) {
         try {
@@ -27,7 +26,6 @@ async function getPool() {
     return pool;
 }
 
-// Función para ejecutar consultas SELECT
 async function executeQuery(query, params = []) {
     try {
         const poolConnection = await getPool();
@@ -45,7 +43,6 @@ async function executeQuery(query, params = []) {
     }
 }
 
-// Función para ejecutar consultas con parámetros nombrados
 async function executeQueryWithNamedParams(query, params = {}) {
     try {
         const poolConnection = await getPool();
@@ -63,7 +60,6 @@ async function executeQueryWithNamedParams(query, params = {}) {
     }
 }
 
-// Función para INSERT/UPDATE/DELETE que retorna filas afectadas
 async function executeNonQuery(query, params = []) {
     try {
         const poolConnection = await getPool();
@@ -81,7 +77,6 @@ async function executeNonQuery(query, params = []) {
     }
 }
 
-// Función para ejecutar procedimientos almacenados
 async function executeStoredProcedure(procedureName, params = {}) {
     try {
         const poolConnection = await getPool();
@@ -99,7 +94,6 @@ async function executeStoredProcedure(procedureName, params = {}) {
     }
 }
 
-// Función para transacciones
 async function executeTransaction(operations) {
     const poolConnection = await getPool();
     const transaction = new sql.Transaction(poolConnection);
@@ -143,15 +137,12 @@ async function closePool() {
     }
 }
 
-// Manejo de eventos de cierre de aplicación
 process.on('SIGINT', async () => {
     console.log('\n Cerrando aplicación...');
     await closePool();
     process.exit(0);
 });
 
-
-// Exportar funciones
 module.exports = {
     getPool,
     executeQuery,
@@ -160,10 +151,9 @@ module.exports = {
     executeStoredProcedure,
     executeTransaction,
     closePool,
-    sql // Para acceder a tipos de datos SQL
+    sql 
 };
 
-// Probar conexión al cargar el módulo
 getPool()
   .then(() => {
     console.log('Módulo de base de datos cargado correctamente');

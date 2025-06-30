@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Registrar pedido y marcar mesa como "Ocupado"
+// Registrar pedido 
 router.post('/', async (req, res) => {
   const { MesaId, Productos } = req.body;
   const fecha = new Date().toISOString();
@@ -23,13 +23,12 @@ router.post('/', async (req, res) => {
       );
     }
 
-    // ✅ Cambiar estado de la mesa a 'Ocupado'
     await db.executeQueryWithNamedParams(
       'UPDATE Mesas SET Estado = \'Ocupado\' WHERE Id = @MesaId',
       { MesaId }
     );
 
-    // Emitir a todos los clientes que esa mesa cambió de estado
+    // Emitir a todos los clientes
     req.io.emit('mesa-actualizada', { mesaId: MesaId, estado: 'Ocupado' });
 
     res.status(201).json({ mensaje: 'Pedido creado y mesa marcada como Ocupada' });
@@ -39,7 +38,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Obtener productos asignados a la mesa (con ProductoId incluido)
+// Lista los productos pedidos en la mesa que aún no se han pagado.
 router.get('/mesa/:mesaId', async (req, res) => {
   const mesaId = parseInt(req.params.mesaId);
   try {
@@ -57,19 +56,17 @@ router.get('/mesa/:mesaId', async (req, res) => {
     const productos = await db.executeQueryWithNamedParams(query, { MesaId: mesaId });
     res.json(productos);
   } catch (error) {
-    console.error('❌ Error al obtener productos de la mesa:', error);
+    console.error('Error al obtener productos de la mesa:', error);
     res.status(500).json({ mensaje: 'Error al obtener productos' });
   }
 });
 
-
-// Eliminar un producto del pedido activo de la mesa, sin importar el orden
+// Eliminar un producto del pedido activo de la mesa
 router.delete('/:mesaId/producto/:productoId', async (req, res) => {
   const mesaId = parseInt(req.params.mesaId);
   const productoId = parseInt(req.params.productoId);
 
   try {
-    // Buscar el pedido activo de esa mesa que contiene ese producto
     const pedidoConProducto = await db.executeQueryWithNamedParams(
       `
       SELECT TOP 1 dp.PedidoId
@@ -86,32 +83,27 @@ router.delete('/:mesaId/producto/:productoId', async (req, res) => {
 
     const pedidoId = pedidoConProducto[0].PedidoId;
 
-    // Eliminar el producto del pedido
     await db.executeQueryWithNamedParams(
       'DELETE FROM DetallePedido WHERE PedidoId = @PedidoId AND ProductoId = @ProductoId',
       { PedidoId: pedidoId, ProductoId: productoId }
     );
 
-    // Si el pedido quedó sin productos, eliminarlo
     const productosRestantes = await db.executeQueryWithNamedParams(
       'SELECT COUNT(*) AS total FROM DetallePedido WHERE PedidoId = @PedidoId',
       { PedidoId: pedidoId }
     );
 
     if (productosRestantes[0].total === 0) {
-      // Eliminar pedido vacío
       await db.executeQueryWithNamedParams(
         'DELETE FROM Pedidos WHERE Id = @PedidoId',
         { PedidoId: pedidoId }
       );
 
-      // 🔴 Aquí verificar si hay más pedidos activos para esa mesa
       const pedidosRestantes = await db.executeQueryWithNamedParams(
         'SELECT COUNT(*) AS total FROM Pedidos WHERE MesaId = @MesaId AND Estado != \'Pagado\'',
         { MesaId: mesaId }
       );
 
-      // ✅ Solo si ya no hay más pedidos activos, se pone en Libre
       if (pedidosRestantes[0].total === 0) {
         await db.executeQueryWithNamedParams(
           'UPDATE Mesas SET Estado = \'Libre\' WHERE Id = @MesaId',
@@ -123,17 +115,16 @@ router.delete('/:mesaId/producto/:productoId', async (req, res) => {
 
     res.json({ mensaje: 'Producto eliminado correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar producto del pedido:', error);
+    console.error('Error al eliminar producto del pedido:', error);
     res.status(500).json({ mensaje: 'Error en servidor' });
   }
 });
 
-//
+//Marca un plato de una mesa como listo
 router.post('/marcar-listo', async (req, res) => {
   const { plato, mesaId } = req.body;
 
   try {
-    // Encuentra el pedido activo de esa mesa
     const pedido = await db.executeQueryWithNamedParams(
       'SELECT TOP 1 Id FROM Pedidos WHERE MesaId = @MesaId AND Estado = \'Pendiente\' ORDER BY Fecha DESC',
       { MesaId: mesaId }
@@ -145,12 +136,11 @@ router.post('/marcar-listo', async (req, res) => {
 
     const pedidoId = pedido[0].Id;
 
-    // 🔁 Aquí actualizamos el estado del plato a 'Listo' en lugar de eliminarlo
     await db.executeQueryWithNamedParams(
       `UPDATE DetallePedido 
-       SET Estado = 'Listo' 
-       WHERE PedidoId = @PedidoId AND ProductoId IN 
-       (SELECT Id FROM Productos WHERE Nombre = @Nombre)`,
+        SET Estado = 'Listo' 
+        WHERE PedidoId = @PedidoId AND ProductoId IN 
+        (SELECT Id FROM Productos WHERE Nombre = @Nombre)`,
       { PedidoId: pedidoId, Nombre: plato }
     );
 
@@ -161,12 +151,11 @@ router.post('/marcar-listo', async (req, res) => {
   }
 });
 
-//
+// Muestra los platos pendientes asignados al cocinero
 router.get('/pendientes/cocinero/:nombre', async (req, res) => {
   const cocinero = req.params.nombre;
 
   try {
-    // 1. Asigna HoraIngreso = GETDATE() a todos los DetallePedido sin hora y estado pendiente del cocinero
     await db.executeQueryWithNamedParams(`
       UPDATE DetallePedido
       SET HoraIngreso = DATEADD(HOUR, -5, GETDATE())
@@ -180,7 +169,6 @@ router.get('/pendientes/cocinero/:nombre', async (req, res) => {
         )
     `, { cocinero });
 
-    // 2. Consulta los pedidos pendientes para ese cocinero (ya tendrán HoraIngreso)
     const result = await db.executeQueryWithNamedParams(`
     SELECT 
       dp.Id as DetalleId, 
@@ -199,7 +187,7 @@ router.get('/pendientes/cocinero/:nombre', async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error('❌ Error al obtener pendientes del cocinero:', error);
+    console.error('Error al obtener pendientes del cocinero:', error);
     res.status(500).json({ error: 'Error en el servidor' });
   }
 });
@@ -210,7 +198,7 @@ router.get('/mesas', async (req, res) => {
     const mesas = await db.executeQuery('SELECT * FROM Mesas');
     res.json(mesas);
   } catch (error) {
-    console.error('❌ Error al obtener mesas:', error);
+    console.error('Error al obtener mesas:', error);
     res.status(500).json({ mensaje: 'Error al obtener mesas' });
   }
 });

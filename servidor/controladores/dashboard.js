@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Ruta para obtener los datos del dashboard
+// Obtener los datos del dashboard
 router.get('/', async (req, res) => {
   try {
     const totalVentasQuery = await db.executeQuery('SELECT ISNULL(SUM(Total), 0) AS total FROM Ventas');
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
       usuarios: usuariosQuery[0].total
     });
   } catch (err) {
-    console.error('❌ Error en dashboard:', err);
+    console.error('Error en dashboard:', err);
     res.status(500).json({ error: 'Error al obtener datos del dashboard' });
   }
 });
