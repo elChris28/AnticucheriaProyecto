@@ -13,10 +13,10 @@ async function cargarVentas() {
       return;
     }
 
-    console.log('📦 Respuesta recibida:', ventas);
+    console.log('Respuesta recibida:', ventas);
 
     if (!Array.isArray(ventas)) {
-      console.error('❌ No es un array:', ventas);
+      console.error('No es un array:', ventas);
       return;
     }
 
@@ -40,7 +40,6 @@ async function cargarVentas() {
       tbody.appendChild(fila);
     })
 
-    // ✅ Agregar eventos a los botones eliminar
     document.querySelectorAll('.eliminar-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-id');
@@ -48,7 +47,6 @@ async function cargarVentas() {
       });
     });
 
-    // ✅ Agregar eventos a los botones editar
     document.querySelectorAll('.editar-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-id');
@@ -58,7 +56,7 @@ async function cargarVentas() {
     });
 
   } catch (err) {
-    console.error('❌ Error al cargar ventas:', err);
+    console.error('Error al cargar ventas:', err);
   }
 }
 
@@ -71,13 +69,13 @@ async function eliminarVenta(id) {
     });
 
     if (res.ok) {
-      alert('✅ Venta eliminada');
+      alert('Venta eliminada');
       cargarVentas();
     } else {
-      alert('❌ Error al eliminar venta');
+      alert('Error al eliminar venta');
     }
   } catch (err) {
-    console.error('❌ Error en eliminación:', err);
+    console.error('Error en eliminación:', err);
   }
 }
 
@@ -95,7 +93,7 @@ async function editarMetodo(id, metodoActual) {
   });
 
   const celda = document.querySelector(`button[data-id="${id}"]`).closest('td');
-  celda.innerHTML = ''; // Limpiar celda actual
+  celda.innerHTML = ''; 
   celda.appendChild(select);
 
   select.addEventListener('change', async () => {
@@ -108,13 +106,13 @@ async function editarMetodo(id, metodoActual) {
       });
 
       if (res.ok) {
-        alert('✅ Método de pago actualizado');
-        cargarVentas(); // Recargar datos actualizados
+        alert('Método de pago actualizado');
+        cargarVentas(); 
       } else {
-        alert('❌ Error al actualizar método');
+        alert('Error al actualizar método');
       }
     } catch (err) {
-      console.error('❌ Error en edición:', err);
+      console.error('Error en edición:', err);
     }
   });
 }
