@@ -10,7 +10,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     Cocinero_1: { password: "1a2b", role: "cocinero_1", redirect: "View/Cocinero1.html" },
     Cocinero_2: { password: "1a2b", role: "cocinero_2", redirect: "View/Cocinero2.html" },
     Cajero: { password: "1a2b", role: "cajero", redirect: "View/gestionCajero.html" },
-    Control: { password: "1a2b", role: "control", redirect: "Admin/Inicio.html" }
+    Control: { password: "1a2b", role: "control", redirect: "paginas/inicio.html" }
   };
 
   // Verificar si el usuario ingresado existe

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Usa tu módulo de conexión con executeQueryWithNamedParams
+const db = require('../config/db'); // Usa tu módulo de conexión con executeQueryWithNamedParams
 
 // Confirmar el pago de una mesa
 router.post('/confirmar/:mesaId', async (req, res) => {

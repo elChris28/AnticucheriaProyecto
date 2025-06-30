@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../config/db');
 
 // Ruta para obtener los datos del dashboard
 router.get('/', async (req, res) => {

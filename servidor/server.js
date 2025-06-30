@@ -16,19 +16,19 @@ app.use((req, res, next) => {
 });
 
 // Rutas para operaciones con base de datos
-app.use('/api/productos', require('./routes/productos'));
-app.use('/api/mesas', require('./routes/mesas'));
-app.use('/api/pedidos', require('./routes/pedidos'));
-app.use('/api', require('./routes/asignaciones'));
-app.use('/api/pagos', require('./routes/pagos'));
-app.use('/api/reportes', require('./routes/reportes'));
-app.use('/api/dashboard', require('./routes/dashboard')); 
+app.use('/api/productos', require('./controladores/productos'));
+app.use('/api/mesas', require('./controladores/mesas'));
+app.use('/api/pedidos', require('./controladores/pedidos'));
+app.use('/api', require('./controladores/asignaciones'));
+app.use('/api/pagos', require('./controladores/pagos'));
+app.use('/api/reportes', require('./controladores/reportes'));
+app.use('/api/dashboard', require('./controladores/dashboard')); 
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..' , 'cliente')));
 
 // Ruta principal
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, '..' , "cliente", "login","index.html"));
 });
 
 // WebSocket para comunicación en tiempo real

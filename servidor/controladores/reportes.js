@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Asegúrate que la ruta sea correcta a tu archivo de conexión
+const db = require('../config/db'); // Asegúrate que la ruta sea correcta a tu archivo de conexión
 
 // Obtener todas las ventas
 router.get('/', async (req, res) => {
