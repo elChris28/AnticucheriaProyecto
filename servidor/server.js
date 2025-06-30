@@ -9,7 +9,6 @@ const io = new Server(server);
 
 app.use(express.json());
 
-// Middleware global para que los routers puedan usar io
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -88,7 +87,7 @@ io.on("connection", (socket) => {
   socket.on("eliminarPedidoListo", ({ index, cocinero }) => {
     if (pedidosListos[cocinero]) {
       pedidosListos[cocinero].splice(index, 1);
-      actualizarPedidosCocinero(cocinero); // emitir de nuevo al cliente
+      actualizarPedidosCocinero(cocinero); 
     }
   });
 
