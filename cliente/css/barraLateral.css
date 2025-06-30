@@ -87,7 +87,6 @@ label #cancel{
   width: 100%;
 }
 
-/* Cuando el menú está activo, mueve el contenido a la derecha */
 #check:checked ~ .main-content {
   margin-left: 320px;
 }

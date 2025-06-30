@@ -4,7 +4,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // Definir los roles y contraseñas correspondientes
+  // Definir los roles y contraseñas 
   const users = {
     Mesas: { password: "1a2b", role: "mesas", redirect: "View/gestionMesas.html" },
     Cocinero_1: { password: "1a2b", role: "cocinero_1", redirect: "View/Cocinero1.html" },

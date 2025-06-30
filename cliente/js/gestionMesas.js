@@ -258,15 +258,15 @@ function obtenerNombreMesa(numero) {
     14: 'Mesa LLevar',
     15: 'Mesa LLevar',
     16: 'Mesa LLevar',
-    // Puedes seguir agregando más nombres según lo necesites
+
   };
 
   return nombres[numero] || `Mesa ${numero}`;
 }
 
-const socket = io(); // Asegúrate de que <script src="/socket.io/socket.io.js"> está incluido en tu HTML
+const socket = io(); 
 
 socket.on('mesa-actualizada', ({ mesaId, estado }) => {
   console.log(`[Socket] Mesa ${mesaId} actualizada a ${estado}`);
-  cargarMesas(); // Recarga el estado de las mesas
+  cargarMesas(); 
 });

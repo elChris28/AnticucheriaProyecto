@@ -1,4 +1,4 @@
-    // Cargar categorías
+
     async function cargarCategorias() {
       const res = await fetch('/api/categorias');
       const categorias = await res.json();
@@ -12,7 +12,6 @@
       });
     }
 
-    // Cargar asignaciones existentes
     async function cargarAsignaciones() {
       const res = await fetch('/api/asignaciones');
       const data = await res.json();
@@ -26,6 +25,7 @@
       });
     }
 
+    // Maneja el envío del formulario de asignación
     document.getElementById('form-asignacion').addEventListener('submit', async (e) => {
       e.preventDefault();
       const cocinero = document.getElementById('cocinero').value;

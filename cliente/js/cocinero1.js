@@ -22,7 +22,7 @@ async function cargarPlatos() {
     const data = await res.json();
 
     const ahora = Date.now();
-    // Agregar tiempo de inicio si no lo tienen
+
     platosAsignados = data.map(p => {
       const existente = platosAsignados.find(x => x.Plato === p.Plato && x.MesaId === p.MesaId);
       return {
@@ -36,7 +36,7 @@ async function cargarPlatos() {
   }
 }
 
-// Renderizar los platos pendientes con temporizador
+// Mostrar los platos pendientes
 function renderPlatos() {
   const contenedor = document.getElementById('lista-platos');
   contenedor.innerHTML = '';
@@ -51,7 +51,7 @@ function renderPlatos() {
     card.className = 'card mb-3 shadow-sm';
 
     const horaIngreso = new Date(p.HoraIngreso.replace(' ', 'T'));
-    const tiempoLimiteMs = 30 * 60 * 1000; // 30 minutos
+    const tiempoLimiteMs = 30 * 60 * 1000; 
     const tiempoRestanteMs = tiempoLimiteMs - (Date.now() - horaIngreso.getTime());
 
     card.innerHTML = `
@@ -74,7 +74,7 @@ function renderPlatos() {
   });
 }
 
-// Temporizador de 30 minutos con colores y conteo de retraso
+// Temporizador
 function iniciarTemporizador(elementId, horaInicio) {
   const span = document.getElementById(elementId);
   const tiempoMax = 30 * 60 * 1000;
@@ -113,6 +113,7 @@ function iniciarTemporizador(elementId, horaInicio) {
   setInterval(actualizar, 1000);
 }
 
+// Devuelve tiempo minutos y segundos
 function formatearTiempo(ms) {
   const totalSec = Math.floor(ms / 1000);
   const min = String(Math.floor(totalSec / 60)).padStart(2, '0');
@@ -120,7 +121,6 @@ function formatearTiempo(ms) {
   return `${min}:${sec}`;
 }
 
-// Marcar como listo
 async function marcarListo(plato, mesaId, cantidad) {
   const confirmar = await Swal.fire({
     title: `¿Marcar "${plato}" como listo?`,
@@ -155,7 +155,7 @@ async function marcarListo(plato, mesaId, cantidad) {
   }
 }
 
-// Renderizar platos terminados
+// Mostrar platos terminados
 function renderPlatosTerminados() {
   const contenedor = document.getElementById('platos-terminados');
   contenedor.innerHTML = '';
@@ -180,7 +180,6 @@ function renderPlatosTerminados() {
   });
 }
 
-// Eliminar individual o todos
 function eliminarPlatoTerminado(index) {
   socket.emit("eliminarPedidoListo", { index, cocinero: rolCocinero });
 }
@@ -189,6 +188,5 @@ function eliminarTodosPedidosListos() {
   socket.emit("eliminarTodosPedidosListos", rolCocinero);
 }
 
-// Inicializar
 cargarPlatos();
 setInterval(cargarPlatos, 5000);

@@ -1,3 +1,5 @@
+
+// Carga datos del dashboard 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch('/api/dashboard');
@@ -8,7 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('mesas-ocupadas').textContent = data.mesasOcupadas;
     document.getElementById('total-productos').textContent = data.productos;
     document.getElementById('total-categorias').textContent = data.categorias;
-    document.getElementById('total-usuarios').textContent = data.usuarios;
 
   } catch (err) {
     console.error('Error al cargar dashboard:', err);

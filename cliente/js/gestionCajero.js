@@ -1,5 +1,5 @@
 let mesaActualId = null;
-let resumenPago = null; // <-- DECLARACIÓN GLOBAL al inicio del archivo
+let resumenPago = null; 
 
 async function cargarMesas() {
   const res = await fetch('/api/mesas');
@@ -140,7 +140,6 @@ async function confirmarPago(mesaId) {
 async function confirmarPagoFinal() {
   const metodo = document.getElementById('metodoPago').value;
 
-  // 1. Confirmar el pago en el backend
   const res = await fetch(`/api/pagos/confirmar/${mesaActualId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -254,7 +253,6 @@ async function agregarPlato(mesaId, productoId) {
 async function cargarResumenPago() {
   let data = null;
 
-  // ⚠️ Si aún no se ha seleccionado ninguna mesa (tras recarga), usar resumenPago de localStorage
   if (!mesaActualId && resumenPago) {
     data = resumenPago;
   } else if (mesaActualId) {
@@ -268,10 +266,8 @@ async function cargarResumenPago() {
     }
   }
 
-  // Si no hay datos, salimos
   if (!data) return;
 
-  // Mostrar en el DOM
   document.getElementById("pago-mesa-id").innerText = data.MesaId;
   document.getElementById("pago-metodo").innerText = data.MetodoPago;
   document.getElementById("pago-total").innerText = `S/ ${data.Total.toFixed(2)}`;
@@ -372,6 +368,6 @@ window.addEventListener('load', async () => {
   const resumenGuardado = localStorage.getItem('resumenPago');
   if (resumenGuardado) {
     resumenPago = JSON.parse(resumenGuardado);
-    await cargarResumenPago(); // ✅ Mostrar el resumen recuperado
+    await cargarResumenPago(); 
   }
 });

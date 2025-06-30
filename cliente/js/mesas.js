@@ -37,13 +37,12 @@ async function agregarVariasMesas() {
     await fetch('/api/mesas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Estado: 'Libre', Numero: `Mesa ${i + 1}` }) // asegúrate que tu backend lo acepte como string
+      body: JSON.stringify({ Estado: 'Libre', Numero: `Mesa ${i + 1}` }) 
     });
   }
 
   cargarMesas();
 }
-
 
 async function eliminarMesa(id) {
   if (confirm('¿Estás seguro de eliminar esta mesa?')) {
@@ -51,7 +50,6 @@ async function eliminarMesa(id) {
     cargarMesas();
   }
 }
-
 
 function obtenerNombreMesa(numero) {
   const nombres = {
@@ -71,7 +69,6 @@ function obtenerNombreMesa(numero) {
     14: 'Mesa LLevar',
     15: 'Mesa LLevar',
     16: 'Mesa LLevar',
-    // Puedes seguir agregando más nombres según lo necesites
   };
 
   return nombres[numero] || `Mesa ${numero}`;
