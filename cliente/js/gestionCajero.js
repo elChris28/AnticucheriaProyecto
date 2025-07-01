@@ -151,13 +151,12 @@ async function confirmarPagoFinal() {
   if (res.ok) {
     alert(data.mensaje || 'Pago realizado exitosamente.');
 
-    // ✅ Agrupar platos directamente desde la respuesta del backend
     const productosAgrupados = {};
     for (const p of data.platos || []) {
       const key = p.ProductoId;
       if (!productosAgrupados[key]) {
         productosAgrupados[key] = {
-          nombre: p.Nombre, // 👈 ahora sí vendrá del backend
+          nombre: p.Nombre, 
           cantidad: 0,
           precioUnitario: p.Precio
         };
@@ -165,17 +164,14 @@ async function confirmarPagoFinal() {
       productosAgrupados[key].cantidad += p.Cantidad;
     }
 
-    // Opcional: si ya incluyes el nombre del producto en `data.platos`, úsalo:
     for (const p of data.platos) {
       if (productosAgrupados[p.ProductoId]) {
         productosAgrupados[p.ProductoId].nombre = p.Nombre || `Producto ${p.ProductoId}`;
       }
     }
 
-    // 🔽 Formatear la lista de platos
     const platosFormateados = Object.values(productosAgrupados);
 
-    // 2. Guardar el resumen en memoria (localStorage si quieres persistencia)
     resumenPago = {
       MesaId: mesaActualId,
       Fecha: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }),
@@ -184,10 +180,8 @@ async function confirmarPagoFinal() {
       Total: data.total
     };
 
-    // ✅ Guardar también en localStorage
     localStorage.setItem('resumenPago', JSON.stringify(resumenPago));
 
-    // 3. Mostrar el resumen y cerrar el modal
     document.getElementById('detalle-mesa').style.display = 'none';
     bootstrap.Modal.getInstance(document.getElementById('modalMetodoPago')).hide();
     await cargarMesas();
@@ -249,7 +243,6 @@ async function agregarPlato(mesaId, productoId) {
   }
 }
 
-// Mostrar resumen de pago después del pago o tras recargar
 async function cargarResumenPago() {
   let data = null;
 
@@ -279,7 +272,6 @@ async function cargarResumenPago() {
   document.getElementById("resumen-pago").style.display = "block";
 }
 
-// OPCIONAL: Imprimir comprobante
 function imprimirComprobante() {
   if (!resumenPago) {
     alert("No hay datos de pago para imprimir.");
@@ -354,14 +346,12 @@ function imprimirComprobante() {
   }
 }
 
-// Socket.IO: mesas actualizadas en tiempo real
 const socket = io();
 socket.on('mesa-actualizada', ({ mesaId, estado }) => {
   console.log(`Mesa ${mesaId} actualizada: ${estado}`);
   cargarMesas();
 });
 
-// Al cargar la página
 window.addEventListener('load', async () => {
   await cargarMesas();
 
