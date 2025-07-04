@@ -9,6 +9,9 @@ router.post('/', async (req, res) => {
 
   try {
     const { mensaje } = await gestionarPedidoDePlato.registrarPedido(MesaId, Productos);
+
+    req.io.emit('mesa-actualizada', { mesaId: MesaId, estado: 'Ocupado' });
+
     res.status(201).json({ mensaje });
   } catch (err) {
     res.status(500).json({ mensaje: 'Error al registrar pedido' });

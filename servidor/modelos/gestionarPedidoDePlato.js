@@ -99,6 +99,7 @@ async function eliminarProductoDelPedido(mesaId, productoId) {
           'UPDATE Mesas SET Estado = \'Libre\' WHERE Id = @MesaId',
           { MesaId: mesaId }
         );
+        req.io.emit('mesa-actualizada', { mesaId: mesaId, estado: 'Libre' });
       }
     }
 
