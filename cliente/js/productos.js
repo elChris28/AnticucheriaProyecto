@@ -96,7 +96,7 @@ function cargarCategorias() {
       filtro.addEventListener("change", cargarProductos);
     })
     .catch(err => {
-      console.error("❌ Error al cargar categorías:", err);
+      console.error("Error al cargar categorías:", err);
     });
 }
 

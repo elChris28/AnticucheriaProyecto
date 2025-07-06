@@ -71,7 +71,6 @@ async function renderizarSeleccionados() {
   const contenedor = document.getElementById('platosAsignados');
   contenedor.innerHTML = '';
 
-  // Productos ya enviados
   productosAsignados.forEach((p, index) => {
     const div = document.createElement('div');
     div.className = 'd-flex align-items-center justify-content-between mb-2 border p-2 rounded';
@@ -87,7 +86,6 @@ async function renderizarSeleccionados() {
     contenedor.appendChild(div);
   });
 
-  // Productos aún no enviados
 productosSeleccionados.forEach((p, index) => {
   const div = document.createElement('div');
   div.className = 'd-flex align-items-center justify-content-between mb-2 border p-2 rounded bg-light';
@@ -224,7 +222,6 @@ function enviarProductoSeleccionado(index) {
     if (res.ok) {
       alert(`Plato "${producto.Nombre}" enviado correctamente`);
 
-      // Eliminamos de la lista de seleccionados
       productosSeleccionados.splice(index, 1);
 
       const modal = bootstrap.Modal.getInstance(document.getElementById('modalProductos'));

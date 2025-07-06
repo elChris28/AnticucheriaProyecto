@@ -12,7 +12,7 @@ async function cargarMesas() {
     const claseEstado = estadoTexto === 'Libre' ? 'libre' : 'ocupado';
 
     const div = document.createElement('div');
-    div.className = `mesa-item col-6 col-sm-6 col-md-4 col-lg-3 ${claseEstado}`; // Responsive layout
+    div.className = `mesa-item col-6 col-sm-6 col-md-4 col-lg-3 ${claseEstado}`; 
     div.innerHTML = `
       <div class="mesa-info">
         <span onclick="seleccionarMesa(${mesa.Id})">${obtenerNombreMesa(mesa.Numero || mesa.Id)}</span>

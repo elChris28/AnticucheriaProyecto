@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gestionarPedidoDePlato = require('../modelos/gestionarPedidoDePlato');
-const gestionarPedidoaCocina= require('../modelos/gestionarPedidoaCocina');
+const gestionarPedidoaCocina= require('../modelos/gestionarPedidosCocina');
 
 // Registrar pedido
 router.post('/', async (req, res) => {
