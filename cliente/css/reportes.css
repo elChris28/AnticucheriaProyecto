@@ -1,6 +1,105 @@
-  
-  #tabla-ventas td:first-child,
-  #tabla-ventas th:first-child 
-  {
-    display: none;
+
+/* Estilo general para la tabla */
+#tabla-ventas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para las celdas de la tabla */
+#tabla-ventas th, #tabla-ventas td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+/* Encabezado de la tabla */
+#tabla-ventas th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #555;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Filas de la tabla */
+#tabla-ventas tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Efecto de hover en las filas */
+#tabla-ventas tr:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+/* Estilo para los botones de acción */
+.btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Botones pequeños */
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* Ajuste de los textos en las celdas con valores numéricos */
+#tabla-ventas td:nth-child(3), #tabla-ventas td:nth-child(4) {
+  text-align: right;
+}
+
+/* Personalización del select en la columna de editar */
+select.form-select {
+  width: 100px;
+  padding: 5px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+#tabla-ventas td:first-child,
+#tabla-ventas th:first-child {
+  display: none ;
+}
+
+/* Estilo para la tabla en pantallas pequeñas */
+@media (max-width: 768px) {
+  #tabla-ventas {
+    font-size: 14px; /* Reducir tamaño de fuente en móviles */
   }
+  #tabla-ventas th, #tabla-ventas td {
+    padding: 8px 10px;
+  }
+  .btn {
+    padding: 6px 10px; /* Botones más pequeños en pantallas pequeñas */
+    font-size: 14px;
+  }
+  .main-content {
+    padding: 10px;
+  }
+}

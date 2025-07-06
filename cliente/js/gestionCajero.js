@@ -347,17 +347,18 @@ function imprimirComprobante() {
 }
 
 const socket = io();
+
 socket.on('mesa-actualizada', ({ mesaId, estado }) => {
   console.log(`Mesa ${mesaId} actualizada: ${estado}`);
-  cargarMesas();
+  cargarMesas();  // Recargar la lista de mesas para reflejar el cambio
 });
 
 window.addEventListener('load', async () => {
-  await cargarMesas();
+  await cargarMesas();  // Carga las mesas inicialmente
 
   const resumenGuardado = localStorage.getItem('resumenPago');
   if (resumenGuardado) {
     resumenPago = JSON.parse(resumenGuardado);
-    await cargarResumenPago(); 
+    await cargarResumenPago();  // Si hay un resumen de pago guardado, lo muestra
   }
 });

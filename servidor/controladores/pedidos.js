@@ -37,6 +37,9 @@ router.delete('/:mesaId/producto/:productoId', async (req, res) => {
 
   try {
     const { mensaje } = await gestionarPedidoDePlato.eliminarProductoDelPedido(mesaId, productoId);
+
+    req.io.emit('mesa-actualizada', { mesaId: mesaId, estado: 'Libre' });
+    
     res.json({ mensaje });
   } catch (error) {
     res.status(500).json({ mensaje: 'Error en servidor' });

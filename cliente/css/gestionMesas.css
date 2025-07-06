@@ -1,0 +1,33 @@
+/* Estilo para cuando la pantalla sea pequeña (móviles) */
+@media (max-width: 768px) {
+    .row.g-3 {
+        display: flex;
+        flex-wrap: wrap; /* Permite que los elementos se ajusten al tamaño de la pantalla */
+        justify-content: space-between;
+    }
+
+    .col-md-3 {
+        width: 48%; /* Cada mesa ocupará el 48% del ancho del contenedor, dejando espacio entre las columnas */
+        margin-bottom: 15px; /* Espaciado entre las mesas */
+    }
+
+    /* Asegurarse de que los botones ocupen el 100% del ancho */
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* Para pantallas más grandes (tablet y PC), mantenemos la disposición en una columna */
+@media (min-width: 768px) {
+    .row.g-3 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas más grandes */
+        gap: 20px; /* Espaciado entre columnas */
+    }
+
+    .col-md-3 {
+        width: 100%;
+    }
+}
