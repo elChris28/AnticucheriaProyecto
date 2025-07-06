@@ -49,7 +49,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-//cambiar el estado de una mesa desde la aplicación
+//cambiar el estado 
 router.put('/:id/estado', async (req, res) => {
   const id = parseInt(req.params.id);
   const { Estado } = req.body;

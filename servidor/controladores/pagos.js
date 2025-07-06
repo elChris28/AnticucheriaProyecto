@@ -58,7 +58,6 @@ router.post('/confirmar/:mesaId', async (req, res) => {
       UPDATE Mesas SET Estado = 'Libre' WHERE Id = @MesaId;
     `, { MesaId: mesaId });
 
-    //actualizar en tiempo real
     req.io.emit('mesa-actualizada', { mesaId: mesaId, estado: 'Libre' });
 
     res.json({

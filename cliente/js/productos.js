@@ -93,7 +93,6 @@ function cargarCategorias() {
         filtro.appendChild(option2);
       });
 
-      // Evento para recargar productos al cambiar el filtro
       filtro.addEventListener("change", cargarProductos);
     })
     .catch(err => {

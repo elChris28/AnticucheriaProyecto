@@ -112,7 +112,6 @@ function iniciarTemporizador(elementId, horaInicio) {
   setInterval(actualizar, 1000);
 }
 
-// Devuelve tiempo minutos y segundos
 function formatearTiempo(ms) {
   const totalSec = Math.floor(ms / 1000);
   const min = String(Math.floor(totalSec / 60)).padStart(2, '0');
@@ -120,7 +119,6 @@ function formatearTiempo(ms) {
   return `${min}:${sec}`;
 }
 
-// Marcar como listo
 async function marcarListo(plato, mesaId, cantidad) {
   const confirmar = await Swal.fire({
     title: `¿Marcar "${plato}" como listo?`,

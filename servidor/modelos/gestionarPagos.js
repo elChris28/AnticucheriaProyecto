@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Obtener todas las ventas
 async function obtenerVentas() {
   try {
     const ventas = await db.executeQuery(`
@@ -15,7 +14,6 @@ async function obtenerVentas() {
   }
 }
 
-// Eliminar una venta
 async function eliminarVenta(id) {
   try {
     await db.executeNonQuery('DELETE FROM DetalleVenta WHERE VentaId = @param0', [id]);
@@ -26,7 +24,6 @@ async function eliminarVenta(id) {
   }
 }
 
-// Editar una venta (cambiar método de pago)
 async function editarVenta(id, metodoPago) {
   try {
     await db.executeNonQuery('UPDATE Ventas SET MetodoPago = @param0 WHERE Id = @param1', [metodoPago, id]);

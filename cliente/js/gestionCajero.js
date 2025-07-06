@@ -9,9 +9,11 @@ async function cargarMesas() {
   cont.innerHTML = '';
 
   mesas.forEach(mesa => {
+    const nombreMesa = obtenerNombreMesa(mesa.Id); 
+
     const btn = document.createElement('button');
     btn.className = `btn btn-${mesa.Estado === 'Ocupado' ? 'danger' : 'success'} fw-bold m-2`;
-    btn.textContent = `Mesa ${mesa.Id} - ${mesa.Estado}`;
+    btn.textContent = `${nombreMesa} - ${mesa.Estado}`;
     btn.onclick = () => cargarDetalleMesa(mesa.Id);
     cont.appendChild(btn);
   });
@@ -346,19 +348,39 @@ function imprimirComprobante() {
   }
 }
 
+function obtenerNombreMesa(numero) {
+  if (numero >= 10) {
+    return 'Mesa Llevar';
+  }
+
+  const nombres = {
+    1: 'Mesa 1',
+    2: 'Mesa 2',
+    3: 'Mesa 3',
+    4: 'Mesa 4',
+    5: 'Mesa 5',
+    6: 'Mesa 6',
+    7: 'Mesa 7',
+    8: 'Mesa 8',
+    9: 'Mesa 9',
+  };
+
+  return nombres[numero] || `Mesa ${numero}`;
+}
+
 const socket = io();
 
 socket.on('mesa-actualizada', ({ mesaId, estado }) => {
   console.log(`Mesa ${mesaId} actualizada: ${estado}`);
-  cargarMesas();  // Recargar la lista de mesas para reflejar el cambio
+  cargarMesas();  
 });
 
 window.addEventListener('load', async () => {
-  await cargarMesas();  // Carga las mesas inicialmente
+  await cargarMesas();  
 
   const resumenGuardado = localStorage.getItem('resumenPago');
   if (resumenGuardado) {
     resumenPago = JSON.parse(resumenGuardado);
-    await cargarResumenPago();  // Si hay un resumen de pago guardado, lo muestra
+    await cargarResumenPago();  
   }
 });

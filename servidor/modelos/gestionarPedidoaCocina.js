@@ -1,9 +1,8 @@
 const db = require('../config/db');
 
-// Función para mostrar los platos pendientes asignados al cocinero
+
 async function obtenerPlatosPendientesCocinero(cocinero) {
   try {
-    // Actualiza la hora de ingreso de los productos pendientes
     await db.executeQueryWithNamedParams(`
       UPDATE DetallePedido
       SET HoraIngreso = DATEADD(HOUR, -5, GETDATE())
@@ -17,7 +16,6 @@ async function obtenerPlatosPendientesCocinero(cocinero) {
         )
     `, { cocinero });
 
-    // Obtiene los productos pendientes asignados al cocinero
     const result = await db.executeQueryWithNamedParams(`
       SELECT 
         dp.Id as DetalleId, 
@@ -44,7 +42,6 @@ async function obtenerPlatosPendientesCocinero(cocinero) {
   }
 }
 
-// Función para obtener todas las mesas
 async function obtenerMesas() {
   try {
     const mesas = await db.executeQuery('SELECT * FROM Mesas');
@@ -55,8 +52,6 @@ async function obtenerMesas() {
   }
 }
 
-
-// Función para marcar un plato como listo
 async function marcarPlatoListo(plato, mesaId) {
   try {
     const pedido = await db.executeQueryWithNamedParams(

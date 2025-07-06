@@ -1,5 +1,3 @@
-let mesaAEditar = null;
-let modalEditar = null;
 
 document.addEventListener('DOMContentLoaded', cargarMesas);
 
@@ -14,12 +12,13 @@ async function cargarMesas() {
     const claseEstado = estadoTexto === 'Libre' ? 'libre' : 'ocupado';
 
     const div = document.createElement('div');
-    div.className = `mesa col-md-2 ${claseEstado}`;
+    div.className = `mesa-item col-6 col-sm-6 col-md-4 col-lg-3 ${claseEstado}`; // Responsive layout
     div.innerHTML = `
-      <div onclick="seleccionarMesa(${mesa.Id})">${obtenerNombreMesa(mesa.Numero || mesa.Id)}</div>
-      <div class="mt-2">
-        <button class="btn btn-sm btn-light" onclick="editarMesa(${mesa.Id})">Editar</button>
-        <button class="btn btn-sm btn-dark" onclick="eliminarMesa(${mesa.Id})">Eliminar</button>
+      <div class="mesa-info">
+        <span onclick="seleccionarMesa(${mesa.Id})">${obtenerNombreMesa(mesa.Numero || mesa.Id)}</span>
+      </div>
+      <div class="mesa-actions">
+        <button class="btn btn-sm btn-danger" onclick="eliminarMesa(${mesa.Id})">Eliminar</button>
       </div>
     `;
     contenedor.appendChild(div);
@@ -52,6 +51,11 @@ async function eliminarMesa(id) {
 }
 
 function obtenerNombreMesa(numero) {
+
+  if (numero >= 10) {
+    return 'Mesa Llevar';
+  }
+
   const nombres = {
     1: 'Mesa 1',
     2: 'Mesa 2',
@@ -62,13 +66,6 @@ function obtenerNombreMesa(numero) {
     7: 'Mesa 7',
     8: 'Mesa 8',
     9: 'Mesa 9',
-    10: 'Mesa LLevar',
-    11: 'Mesa LLevar',
-    12: 'Mesa LLevar',
-    13: 'Mesa LLevar',
-    14: 'Mesa LLevar',
-    15: 'Mesa LLevar',
-    16: 'Mesa LLevar',
   };
 
   return nombres[numero] || `Mesa ${numero}`;

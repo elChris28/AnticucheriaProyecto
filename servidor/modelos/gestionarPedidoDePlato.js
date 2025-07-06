@@ -1,17 +1,14 @@
 const db = require('../config/db');
 
-// Función para registrar un pedido
 async function registrarPedido(MesaId, Productos) {
   const fecha = new Date().toISOString();
   try {
-    // Crear pedido
     const pedidoInsert = await db.executeQueryWithNamedParams(
       'INSERT INTO Pedidos (MesaId, Fecha, Estado) OUTPUT INSERTED.Id VALUES (@MesaId, @Fecha, @Estado)',
       { MesaId, Fecha: fecha, Estado: 'Pendiente' }
     );
     const pedidoId = pedidoInsert[0].Id;
 
-    // Insertar detalles del pedido
     for (const item of Productos) {
       await db.executeQueryWithNamedParams(
         'INSERT INTO DetallePedido (PedidoId, ProductoId, Cantidad, Estado) VALUES (@PedidoId, @ProductoId, @Cantidad, @Estado)',
@@ -19,7 +16,6 @@ async function registrarPedido(MesaId, Productos) {
       );
     }
 
-    // Actualizar estado de la mesa
     await db.executeQueryWithNamedParams(
       'UPDATE Mesas SET Estado = \'Ocupado\' WHERE Id = @MesaId',
       { MesaId }
@@ -32,7 +28,6 @@ async function registrarPedido(MesaId, Productos) {
   }
 }
 
-// Función para obtener los productos pendientes de una mesa
 async function obtenerProductosPendientesDeMesa(mesaId) {
   try {
     const query = `
@@ -54,7 +49,6 @@ async function obtenerProductosPendientesDeMesa(mesaId) {
   }
 }
 
-// Función para eliminar un producto del pedido activo
 async function eliminarProductoDelPedido(mesaId, productoId) {
   try {
     const pedidoConProducto = await db.executeQueryWithNamedParams(
@@ -108,7 +102,6 @@ async function eliminarProductoDelPedido(mesaId, productoId) {
     throw new Error('Error en servidor');
   }
 }
-
 
 module.exports = {
   registrarPedido,

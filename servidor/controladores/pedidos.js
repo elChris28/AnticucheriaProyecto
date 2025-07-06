@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Lista los productos pedidos en la mesa que aún no se han pagado.
+// Lista los productos pedidos
 router.get('/mesa/:mesaId', async (req, res) => {
   const mesaId = parseInt(req.params.mesaId);
 
@@ -71,7 +71,7 @@ router.get('/pendientes/cocinero/:nombre', async (req, res) => {
   }
 });
 
-// Obtener todas las mesas
+// Mostrar mesas
 router.get('/mesas', async (req, res) => {
   try {
     const mesas = await gestionarPedidoaCocina.obtenerMesas();

@@ -1,5 +1,5 @@
 
-/* Estilo general para la tabla */
+
 #tabla-ventas {
   width: 100%;
   border-collapse: collapse;
@@ -7,7 +7,6 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Estilo para las celdas de la tabla */
 #tabla-ventas th, #tabla-ventas td {
   padding: 12px 15px;
   text-align: left;
@@ -15,7 +14,6 @@
   color: #333;
 }
 
-/* Encabezado de la tabla */
 #tabla-ventas th {
   background-color: #f8f9fa;
   font-weight: bold;
@@ -24,18 +22,15 @@
   border-bottom: 2px solid #ddd;
 }
 
-/* Filas de la tabla */
 #tabla-ventas tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-/* Efecto de hover en las filas */
 #tabla-ventas tr:hover {
   background-color: #e9ecef;
   cursor: pointer;
 }
 
-/* Estilo para los botones de acción */
 .btn {
   padding: 6px 12px;
   font-size: 14px;
@@ -63,18 +58,15 @@
   background-color: #c82333;
 }
 
-/* Botones pequeños */
 .btn-sm {
   padding: 4px 8px;
   font-size: 12px;
 }
 
-/* Ajuste de los textos en las celdas con valores numéricos */
 #tabla-ventas td:nth-child(3), #tabla-ventas td:nth-child(4) {
   text-align: right;
 }
 
-/* Personalización del select en la columna de editar */
 select.form-select {
   width: 100px;
   padding: 5px;
@@ -87,16 +79,15 @@ select.form-select {
   display: none ;
 }
 
-/* Estilo para la tabla en pantallas pequeñas */
 @media (max-width: 768px) {
   #tabla-ventas {
-    font-size: 14px; /* Reducir tamaño de fuente en móviles */
+    font-size: 14px; 
   }
   #tabla-ventas th, #tabla-ventas td {
     padding: 8px 10px;
   }
   .btn {
-    padding: 6px 10px; /* Botones más pequeños en pantallas pequeñas */
+    padding: 6px 10px; 
     font-size: 14px;
   }
   .main-content {

@@ -74,7 +74,6 @@ function renderPlatos() {
   });
 }
 
-// Temporizador
 function iniciarTemporizador(elementId, horaInicio) {
   const span = document.getElementById(elementId);
   const tiempoMax = 30 * 60 * 1000;
@@ -113,7 +112,6 @@ function iniciarTemporizador(elementId, horaInicio) {
   setInterval(actualizar, 1000);
 }
 
-// Devuelve tiempo minutos y segundos
 function formatearTiempo(ms) {
   const totalSec = Math.floor(ms / 1000);
   const min = String(Math.floor(totalSec / 60)).padStart(2, '0');

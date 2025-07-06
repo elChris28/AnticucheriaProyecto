@@ -119,7 +119,7 @@ io.on("connection", (socket) => {
 });
 
 
-// Puerto e inicio del servidor
+// Inicio del servidor
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
